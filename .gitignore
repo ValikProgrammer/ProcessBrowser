@@ -1,0 +1,13 @@
+.idea
+.clang-format
+logs/
+bin/
+deps/
+dist/
+buuild/
+*.o
+*.so
+*.a
+*.exe
+*.log
+*.tmp

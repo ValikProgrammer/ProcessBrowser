@@ -14,7 +14,7 @@
 #include "system.h"
 #include "input.h"
 
-#define REFRESH_INTERVAL_MS 800 // 1000 is max, after 1000 will be overflow
+#define REFRESH_INTERVAL_MS 1000 // 1000 is max, after 1000 will be overflow
 
 int main(void)
 {

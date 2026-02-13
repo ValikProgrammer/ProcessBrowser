@@ -14,7 +14,7 @@
 #include "system.h"
 #include "input.h"
 
-#define REFRESH_INTERVAL_MS 1000 // 1000 is max, after 1000 will be overflow
+#define REFRESH_INTERVAL_MS 800 // 1000 is max, after 1000 will be overflow
 
 int main(void)
 {
@@ -59,12 +59,17 @@ int main(void)
 	long total_cpu_prev = read_total_cpu_time();
 	long active_cpu_prev = read_active_cpu_time();
 
+	bool first_iteration = true;
 	while (!input_state.should_exit) {
-		// wait 1 sec in total, track user input 10 times/sec
-		for (int i = 0; i < 10; i++) {
-			input_handle(&input_state, curr_processes, prev_count);
-			struct timespec ts = {0, REFRESH_INTERVAL_MS * 100000}; // 100ms
-			nanosleep(&ts, NULL);
+		if (first_iteration) {
+			first_iteration = false;
+		} else {
+			// wait 1 sec in total, track user input 10 times/sec
+			for (int i = 0; i < 10; i++) {
+				input_handle(&input_state, curr_processes, prev_count);
+				struct timespec ts = {0, REFRESH_INTERVAL_MS * 100000}; // 100ms
+				nanosleep(&ts, NULL);
+			}
 		}
 
 		long total_cpu_curr = read_total_cpu_time();
